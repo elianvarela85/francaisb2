@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0D1B2A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FrançaisB2">
+<title>FrançaisB2 — Certifícate en B2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --navy:#0D1B2A;--navy2:#1a2e44;--navy3:#253f5a;--navy4:#0a1520;
+  --gold:#C9A84C;--gold2:#e8c97a;--gold3:#f5e0a0;
+  --cream:#F9F6F0;--cream2:#EDE8DF;--cream3:#e0dbd0;
+  --white:#ffffff;
+  --success:#2D6A4F;--success-bg:#D8F3DC;--success-border:#52B788;
+  --danger:#9B2226;--danger-bg:#FFDDD2;--danger-border:#E05252;
+  --warn:#7d5a00;--warn-bg:#FFF3CD;--warn-border:#FFC107;
+  --blue:#1d4ed8;--blue-bg:#EEF2FF;
+  --purple:#7c3aed;--purple-bg:#F5F3FF;
+  --radius:14px;--radius-sm:10px;--radius-xs:7px;
+  --shadow:0 2px 16px rgba(13,27,42,0.12);
+  --shadow-lg:0 8px 32px rgba(13,27,42,0.18);
+  --font-serif:'DM Serif Display',Georgia,serif;
+  --font-sans:'DM Sans',system-ui,sans-serif;
+}
+html,body{height:100%;overflow:hidden;background:var(--cream);font-family:var(--font-sans);color:var(--navy);-webkit-font-smoothing:antialiased}
+#app{height:100dvh;display:flex;flex-direction:column;max-width:480px;margin:0 auto;position:relative;background:var(--cream);overflow:hidden}
+
+/* SCREENS */
+.screen{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:72px}
+.screen.active{display:block;animation:fadeSlide .22s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:50}
+.topbar-logo{font-family:var(--font-serif);color:var(--gold);font-size:19px;letter-spacing:-.3px}
+.topbar-back{background:transparent;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:0 4px;line-height:1}
+.topbar-title{color:white;font-size:15px;font-weight:500}
+.topbar-right{display:flex;gap:8px;align-items:center}
+
+/* BOTTOM NAV */
+.bottomnav{background:var(--white);border-top:1px solid var(--cream2);display:flex;flex-shrink:0;position:relative;z-index:50;box-shadow:0 -4px 20px rgba(13,27,42,0.07)}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px 10px;border:none;background:transparent;cursor:pointer;color:#8a8a8a;font-family:var(--font-sans);font-size:9.5px;gap:2px;transition:color .2s;position:relative}
+.nav-btn.active{color:var(--navy)}
+.nav-icon{font-size:19px;line-height:1}
+.nav-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;position:absolute;bottom:4px}
+
+/* PROGRESS BAR TOP */
+.progress-top{height:3px;background:var(--cream2);position:sticky;top:0;z-index:40;flex-shrink:0}
+.progress-top-fill{height:100%;background:var(--gold);transition:width .5s ease}
+
+/* TYPOGRAPHY */
+.serif{font-family:var(--font-serif)}
+.h1{font-size:26px;font-weight:400;line-height:1.2;font-family:var(--font-serif)}
+.h2{font-size:19px;font-weight:500;line-height:1.3}
+.h3{font-size:15px;font-weight:600;line-height:1.3}
+.body{font-size:14px;line-height:1.65;color:#4a5568}
+.small{font-size:12px;color:#718096}
+.label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#8a8a8a}
+.muted{color:#8a8a8a}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--radius);padding:16px;border:1px solid rgba(13,27,42,.07);box-shadow:var(--shadow)}
+.card-navy{background:var(--navy);border-radius:var(--radius);padding:16px}
+.card-gold{background:linear-gradient(135deg,#C9A84C 0%,#e8c97a 100%);border-radius:var(--radius);padding:16px}
+.card-cream{background:var(--cream2);border-radius:var(--radius);padding:16px}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-size:11.5px;font-weight:600}
+.chip-navy{background:var(--navy);color:var(--gold2)}
+.chip-gold{background:var(--gold);color:var(--navy)}
+.chip-green{background:var(--success-bg);color:var(--success)}
+.chip-gray{background:var(--cream2);color:#5a6470}
+.chip-blue{background:var(--blue-bg);color:var(--blue)}
+.chip-red{background:#FFDDD2;color:var(--danger)}
+
+/* BUTTONS */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;font-family:var(--font-sans);font-weight:500;border-radius:var(--radius-sm);transition:all .15s;padding:14px 20px;font-size:15px;width:100%}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--navy);color:white}
+.btn-primary:hover{background:var(--navy2)}
+.btn-gold{background:var(--gold);color:var(--navy);font-weight:700}
+.btn-gold:hover{background:var(--gold2)}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+.btn-sm{padding:8px 16px;font-size:13px;width:auto;border-radius:var(--radius-xs)}
+.btn-danger{background:var(--danger-bg);color:var(--danger)}
+.btn-success{background:var(--success-bg);color:var(--success)}
+.btn-warn{background:var(--warn-bg);color:var(--warn)}
+
+/* PROGRESS BARS */
+.pbar{background:var(--cream2);border-radius:100px;overflow:hidden}
+.pbar-fill{border-radius:100px;transition:width .6s ease}
+.pbar-gold{background:var(--gold)}
+.pbar-green{background:var(--success)}
+.pbar-blue{background:var(--blue)}
+.pbar-navy{background:var(--navy)}
+.pbar-orange{background:#EA580C}
+.pbar-purple{background:var(--purple)}
+.pbar-teal{background:#0D9488}
+
+/* OPTION BUTTONS */
+.opt{width:100%;text-align:left;padding:13px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--cream2);background:var(--white);cursor:pointer;font-family:var(--font-sans);font-size:14px;color:var(--navy);display:flex;align-items:center;gap:12px;transition:all .15s;margin-bottom:9px}
+.opt:hover{border-color:var(--navy3);background:var(--cream)}
+.opt.selected{border-color:var(--navy);background:var(--navy);color:white}
+.opt.correct{border-color:var(--success-border);background:var(--success-bg);color:var(--success)}
+.opt.wrong{border-color:var(--danger-border);background:var(--danger-bg);color:var(--danger)}
+.opt-letter{width:30px;height:30px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;color:#5a6470;transition:all .15s}
+.opt.selected .opt-letter{background:rgba(255,255,255,.2);color:white}
+.opt.correct .opt-letter{background:var(--success);color:white}
+.opt.wrong .opt-letter{background:var(--danger);color:white}
+
+/* FEEDBACK */
+.feedback{border-radius:var(--radius-sm);padding:13px 16px;margin-top:12px;display:none;animation:fadeIn .3s ease}
+.feedback.show{display:block}
+.feedback.ok{background:var(--success-bg);border-left:3px solid var(--success-border)}
+.feedback.err{background:var(--danger-bg);border-left:3px solid var(--danger-border)}
+.feedback.hint{background:var(--warn-bg);border-left:3px solid var(--warn-border)}
+.feedback.info{background:var(--blue-bg);border-left:3px solid var(--blue)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* MODULE GRID */
+.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mod-card{border-radius:var(--radius);padding:16px;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1px solid rgba(13,27,42,.06)}
+.mod-card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.mod-card:active{transform:scale(.97)}
+.mod-icon{font-size:30px;margin-bottom:8px;line-height:1}
+.mod-name{font-size:13.5px;font-weight:600;color:var(--navy)}
+.mod-sub{font-size:11px;color:#8a8a8a;margin-top:2px}
+
+/* SECTION SPACING */
+.sec{padding:18px}
+.sec+.sec{padding-top:0}
+
+/* STAT GRID */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat-card{background:var(--white);border-radius:var(--radius-sm);padding:14px;border:1px solid rgba(13,27,42,.07)}
+.stat-num{font-size:28px;font-weight:300;color:var(--navy);line-height:1;font-family:var(--font-serif)}
+.stat-lbl{font-size:11px;color:#8a8a8a;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+
+/* AVATAR / LEVEL RING */
+.avatar{width:54px;height:54px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:22px;color:var(--navy);flex-shrink:0}
+.lvl-ring{position:relative;flex-shrink:0}
+.lvl-ring svg{transform:rotate(-90deg)}
+.lvl-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+
+/* FLASHCARD */
+.fc-wrap{perspective:1200px;height:190px;cursor:pointer;width:100%}
+.fc-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.fc-wrap.flipped .fc-inner{transform:rotateY(180deg)}
+.fc-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:20px}
+.fc-front{background:var(--navy)}
+.fc-back{background:linear-gradient(135deg,#C9A84C 0%,#e8c97a 100%);transform:rotateY(180deg)}
+
+/* AUDIO PLAYER */
+.audio-wrap{background:var(--navy2);border-radius:var(--radius-sm);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.play-btn{width:42px;height:42px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;transition:transform .15s}
+.play-btn:active{transform:scale(.9)}
+.wave-bars{display:flex;gap:3px;align-items:center;flex:1;height:34px}
+.wbar{width:3px;border-radius:3px;background:rgba(255,255,255,.25);transition:height .1s}
+.wbar.playing{animation:wv 1.1s ease-in-out infinite}
+@keyframes wv{0%,100%{height:4px}50%{height:22px}}
+
+/* WRITING */
+.write-area{width:100%;min-height:150px;padding:14px;border:1.5px solid var(--cream2);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;line-height:1.75;resize:none;outline:none;color:var(--navy);background:var(--white);transition:border-color .2s}
+.write-area:focus{border-color:var(--navy)}
+
+/* CONJUGATION */
+.conj-tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.conj-tbl td{padding:9px 10px;border-bottom:1px solid var(--cream2)}
+.conj-tbl td:first-child{color:#8a8a8a;width:42%}
+.conj-inp{border:none;border-bottom:1.5px solid var(--cream2);background:transparent;font-family:var(--font-sans);font-size:14px;color:var(--navy);outline:none;width:100%;padding:2px 0;transition:border-color .2s}
+.conj-inp:focus{border-bottom-color:var(--gold)}
+.conj-inp.correct{color:var(--success);border-bottom-color:var(--success)}
+.conj-inp.wrong{color:var(--danger);border-bottom-color:var(--danger)}
+
+/* WORD CHIPS */
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.wchip{padding:7px 16px;border-radius:20px;background:var(--white);border:1.5px solid var(--cream2);font-size:13px;font-weight:500;cursor:pointer;color:var(--navy);transition:all .15s}
+.wchip:hover{border-color:var(--navy);background:var(--cream)}
+.wchip.used{opacity:.3;pointer-events:none}
+
+/* TABS */
+.tabs{display:flex;gap:4px;padding:4px;background:var(--cream2);border-radius:var(--radius-sm)}
+.tab-btn{flex:1;padding:9px 10px;border:none;border-radius:7px;background:transparent;cursor:pointer;font-family:var(--font-sans);font-size:13px;font-weight:500;color:#8a8a8a;transition:all .2s}
+.tab-btn.active{background:var(--white);color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.09)}
+
+/* EXAM */
+.exam-bar{background:var(--danger);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.timer{background:rgba(255,255,255,.18);color:white;padding:6px 14px;border-radius:20px;font-size:14px;font-weight:700;font-family:monospace;letter-spacing:.5px}
+
+/* LESSON PATH */
+.path-node{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:transform .15s;border:3px solid transparent;position:relative}
+.path-node:active{transform:scale(.93)}
+.path-node.done{background:var(--navy);border-color:var(--navy)}
+.path-node.active-node{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 5px rgba(201,168,76,.25)}
+.path-node.locked{background:var(--cream2);border-color:var(--cream2);opacity:.6;cursor:default}
+.path-line{width:2px;height:28px;background:var(--cream2);margin:0 auto}
+.path-line.done{background:var(--navy)}
+
+/* BADGE GRID */
+.badge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bdg{display:flex;flex-direction:column;align-items:center;gap:5px}
+.bdg-icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px}
+.bdg-icon.earned{background:var(--navy)}
+.bdg-icon.locked{background:var(--cream2);filter:grayscale(1);opacity:.45}
+.bdg-name{font-size:10px;color:#8a8a8a;text-align:center;line-height:1.3}
+
+/* HERO SECTION */
+.hero{background:var(--navy);padding:22px 18px 28px;position:relative;overflow:hidden;flex-shrink:0}
+.hero::after{content:'B2';position:absolute;right:-12px;bottom:-28px;font-family:var(--font-serif);font-size:130px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+
+/* READING TEXT */
+.reading-text{background:var(--cream);border-radius:var(--radius-sm);padding:16px;font-size:14px;line-height:1.85;color:var(--navy);max-height:200px;overflow-y:auto;border:1px solid var(--cream3)}
+
+/* CONNECTORS BAR */
+.conn-bar{display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.conn-bar::-webkit-scrollbar{display:none}
+.conn-pill{padding:7px 14px;background:var(--blue-bg);color:var(--blue);border-radius:20px;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer;border:none;font-family:var(--font-sans);flex-shrink:0;transition:all .15s}
+.conn-pill:hover{background:#dce3ff}
+
+/* PROFILE */
+.profile-hero{background:var(--navy);padding:24px 18px 32px;text-align:center}
+
+/* DIVIDER */
+.div{height:1px;background:var(--cream2);margin:4px 0}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:0;height:0}
+
+/* ADMIN PANEL */
+.admin-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--cream2)}
+.admin-row:last-child{border-bottom:none}
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--cream2);border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--navy)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.toggle.on::after{transform:translateX(20px)}
+
+/* PWA INSTALL BANNER */
+.install-banner{background:var(--navy);padding:12px 16px;display:flex;align-items:center;gap:10px;position:fixed;bottom:72px;left:0;right:0;max-width:480px;margin:0 auto;z-index:200;animation:slideUp .4s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* SCORE CHART BARS */
+.score-chart{display:flex;gap:6px;align-items:flex-end;height:80px;padding:0 4px}
+.score-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.score-bar{width:100%;border-radius:4px 4px 0 0;background:var(--gold);min-height:4px;transition:height .6s ease}
+.score-bar-lbl{font-size:10px;color:#8a8a8a}
+
+/* RESPONSIVE */
+@media(max-height:700px){.hero{padding:16px 18px 20px}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ===== TOPBAR (dynamic) ===== -->
+<div id="topbar" class="topbar">
+  <span class="topbar-logo">FrançaisB2</span>
+  <div class="topbar-right">
+    <span class="chip chip-navy" id="streak-badge">🔥 7</span>
+    <span style="color:var(--gold2);font-size:13px;font-weight:500" id="xp-badge">1,240 XP</span>
+  </div>
+</div>
+
+<!-- ===== SCREENS CONTAINER ===== -->
+
+<!-- HOME -->
+<div id="s-home" class="screen active">
+  <div class="hero">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+      <div class="avatar" id="home-avatar">M</div>
+      <div style="flex:1">
+        <div style="color:rgba(255,255,255,.55);font-size:12px;text-transform:uppercase;letter-spacing:.8px">Bonjour,</div>
+        <div style="color:white;font-size:20px;font-weight:500;font-family:var(--font-serif)" id="home-name">Marcos</div>
+      </div>
+      <!-- LEVEL SVG RING -->
+      <div class="lvl-ring">
+        <svg width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="5"/>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="#C9A84C" stroke-width="5" stroke-dasharray="188.5" stroke-dashoffset="71.6" stroke-linecap="round"/>
+        </svg>
+        <div class="lvl-inner">
+          <span style="color:var(--gold);font-family:var(--font-serif);font-size:16px">B1</span>
+          <span style="color:rgba(255,255,255,.45);font-size:9px">62%</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.09);border-radius:10px;padding:13px 15px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="color:rgba(255,255,255,.65);font-size:12px">Progreso hacia B2</span>
+        <span style="color:var(--gold2);font-size:12.5px;font-weight:600">62 / 100 pts</span>
+      </div>
+      <div class="pbar" style="height:8px"><div class="pbar-fill pbar-gold" style="width:62%;height:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- DAILY GOAL -->
+  <div class="sec">
+    <div class="card-navy" style="display:flex;align-items:center;gap:14px;padding:15px 17px">
+      <span style="font-size:34px">🎯</span>
+      <div style="flex:1">
+        <div style="color:rgba(255,255,255,.55);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px">Meta diaria — 20 min</div>
+        <div style="color:white;font-size:14px;font-weight:500">2 de 3 actividades completadas</div>
+        <div class="pbar" style="margin-top:9px;height:5px"><div class="pbar-fill pbar-gold" style="width:66%;height:100%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTINUE -->
+  <div class="sec" style="padding-top:0">
+    <div class="label" style="margin-bottom:10px">Continuar donde lo dejaste</div>
+    <div class="card" style="cursor:pointer" onclick="goScreen('s-lesson')">
+      <div style="display:flex;align-items:center;gap:13px">
+        <div style="width:46px;height:46px;border-radius:11px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📚</div>
+        <div style="flex:1">
+          <div class="h3">Le subjonctif présent</div>
+          <div class="small muted" style="margin-top:2px">Grammaire B1→B2 · Lección 24 de 40</div>
+          <div class="pbar" style="margin-top:8px;height:4px;width:70%"><div class="pbar-fill pbar-navy" style="width:40%;height:100%"></div></div>
+        </div>
+        <span style="color:#c0c0c0;font-size:22px">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULES -->
+  <div class="sec" style="padding-top:0">
+    <div class="label" style="margin-bottom:10px">Módulos de estudio</div>
+    <div class="mod-grid">
+      <div class="mod-card" style="background:#EEF2FF" onclick="goScreen('s-lesson')">
+        <div class="mod-icon">📖</div>
+        <div class="mod-name">Grammaire</div>
+        <div class="mod-sub">18/40 lecciones</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill pbar-navy" style="width:45%;height:100%"></div></div>
+      </div>
+      <div class="mod-card" style="background:#F0FDF4" onclick="goScreen('s-vocab')">
+        <div class="mod-icon">💬</div>
+        <div class="mod-name">Vocabulaire</div>
+        <div class="mod-sub">340 mots · 12 thèmes</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill pbar-green" style="width:34%;height:100%"></div></div>
+      </div>
+      <div class="mod-card" style="background:#FFF7ED" onclick="goScreen('s-listen')">
+        <div class="mod-icon">🎧</div>
+        <div class="mod-name">Compréhension</div>
+        <div class="mod-sub">orale · 12 docs</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill pbar-orange" style="width:28%;height:100%"></div></div>
+      </div>
+      <div class="mod-card" style="background:#FDF4FF" onclick="goScreen('s-writing')">
+        <div class="mod-icon">✍️</div>
+        <div class="mod-name">Production</div>
+        <div class="mod-sub">écrite · 8 sujets</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill pbar-purple" style="width:20%;height:100%"></div></div>
+      </div>
+      <div class="mod-card" style="background:#F0F9FF" onclick="goScreen('s-exercises')">
+        <div class="mod-icon">⚡</div>
+        <div class="mod-name">Exercices</div>
+        <div class="mod-sub">Práctica mixta</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill pbar-blue" style="width:55%;height:100%"></div></div>
+      </div>
+      <div class="mod-card" style="background:#FFF1F2" onclick="goScreen('s-exam')">
+        <div class="mod-icon">🏆</div>
+        <div class="mod-name">Simulacre B2</div>
+        <div class="mod-sub">Examen DELF</div>
+        <div class="pbar" style="margin-top:8px;height:3px"><div class="pbar-fill" style="width:10%;height:100%;background:#E11D48;border-radius:100px"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="sec" style="padding-top:0">
+    <div class="label" style="margin-bottom:10px">Esta semana</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-num">142</div><div class="stat-lbl">Ejercicios</div></div>
+      <div class="stat-card"><div class="stat-num">87%</div><div class="stat-lbl">Precisión</div></div>
+      <div class="stat-card"><div class="stat-num">4h 20'</div><div class="stat-lbl">Tiempo</div></div>
+      <div class="stat-card"><div class="stat-num">7</div><div class="stat-lbl">Días racha</div></div>
+    </div>
+  </div>
+
+  <!-- SCORE CHART -->
+  <div class="sec" style="padding-top:0">
+    <div class="label" style="margin-bottom:12px">Resultados últimos 7 días</div>
+    <div class="card">
+      <div class="score-chart">
+        <div class="score-bar-wrap"><div class="score-bar" style="height:45px"></div><div class="score-bar-lbl">L</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:62px"></div><div class="score-bar-lbl">M</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:38px;background:var(--cream3)"></div><div class="score-bar-lbl">X</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:70px"></div><div class="score-bar-lbl">J</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:55px"></div><div class="score-bar-lbl">V</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:78px"></div><div class="score-bar-lbl">S</div></div>
+        <div class="score-bar-wrap"><div class="score-bar" style="height:65px;background:var(--navy)"></div><div class="score-bar-lbl" style="color:var(--navy);font-weight:700">D</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSON (Grammar) -->
+<div id="s-lesson" class="screen">
+  <div class="sec">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <span class="chip chip-gray">📖 Grammaire</span>
+      <span class="chip chip-gray">🕐 8 min</span>
+      <span class="chip chip-green">+50 XP</span>
+      <span class="chip chip-blue">B1 → B2</span>
+    </div>
+    <div class="h2" style="margin-bottom:4px;font-family:var(--font-serif)">Le Subjonctif Présent</div>
+    <div class="body muted" style="margin-bottom:18px">Compétence grammaticale essentielle pour le B2</div>
+
+    <!-- THEORY -->
+    <div class="card" style="margin-bottom:13px">
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:13px">
+        <span style="font-size:24px">💡</span>
+        <div>
+          <div class="h3" style="margin-bottom:6px">Formation</div>
+          <div class="body">Se forma a partir del <strong>radical de la 3ª persona del plural</strong> del presente de indicativo + terminaciones del subjonctif.</div>
+        </div>
+      </div>
+      <div style="background:var(--cream);border-radius:var(--radius-xs);padding:13px;font-size:14px;line-height:2;color:var(--navy)">
+        ils <strong>parl</strong>ent → que je <strong>parle</strong><br>
+        ils <strong>finiss</strong>ent → que tu <strong>finisses</strong><br>
+        ils <strong>prenn</strong>ent → qu'il <strong>prenne</strong>
+      </div>
+    </div>
+
+    <!-- WHEN TO USE -->
+    <div class="card" style="margin-bottom:13px">
+      <div class="h3" style="margin-bottom:12px">Quand utiliser le subjonctif ?</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px">
+          <span style="color:var(--gold);font-weight:700;font-size:12px;min-width:22px;padding-top:2px">01</span>
+          <div class="body"><strong>Verbes de volonté :</strong> vouloir que, désirer que, exiger que, souhaiter que...</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <span style="color:var(--gold);font-weight:700;font-size:12px;min-width:22px;padding-top:2px">02</span>
+          <div class="body"><strong>Verbes d'émotion :</strong> être content que, avoir peur que, regretter que...</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <span style="color:var(--gold);font-weight:700;font-size:12px;min-width:22px;padding-top:2px">03</span>
+          <div class="body"><strong>Conjonctions :</strong> bien que, pour que, à moins que, quoique, afin que...</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <span style="color:var(--gold);font-weight:700;font-size:12px;min-width:22px;padding-top:2px">04</span>
+          <div class="body"><strong>Doute/nécessité :</strong> il faut que, il est possible que, douter que...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONJUGATION INTERACTIVE -->
+    <div class="card" style="margin-bottom:13px">
+      <div class="h3" style="margin-bottom:4px">Conjugue le verbe <em style="font-style:italic;color:var(--text2)">finir</em></div>
+      <div class="small muted" style="margin-bottom:12px">Subjonctif présent — escribe cada forma</div>
+      <table class="conj-tbl">
+        <tr><td>que je</td><td><input class="conj-inp" id="ci1" placeholder="..." onblur="chkC(this,'finisse')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+        <tr><td>que tu</td><td><input class="conj-inp" id="ci2" placeholder="..." onblur="chkC(this,'finisses')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+        <tr><td>qu'il/elle</td><td><input class="conj-inp" id="ci3" placeholder="..." onblur="chkC(this,'finisse')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+        <tr><td>que nous</td><td><input class="conj-inp" id="ci4" placeholder="..." onblur="chkC(this,'finissions')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+        <tr><td>que vous</td><td><input class="conj-inp" id="ci5" placeholder="..." onblur="chkC(this,'finissiez')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+        <tr><td>qu'ils/elles</td><td><input class="conj-inp" id="ci6" placeholder="..." onblur="chkC(this,'finissent')" autocomplete="off" autocorrect="off" spellcheck="false"></td></tr>
+      </table>
+      <div id="cfb" class="feedback"></div>
+      <button class="btn btn-sm btn-outline" style="margin-top:12px;width:auto" onclick="revealConj()">Ver respuestas</button>
+    </div>
+
+    <!-- EXAMPLE SENTENCES -->
+    <div class="card" style="margin-bottom:18px">
+      <div class="h3" style="margin-bottom:12px">Exemples en contexte B2</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="border-left:3px solid var(--gold);padding-left:12px">
+          <div style="font-size:14px;color:var(--navy);font-style:italic;margin-bottom:3px">"Il est essentiel que chaque citoyen <strong>participe</strong> au débat démocratique."</div>
+          <div class="small muted">→ il est essentiel que + subjonctif</div>
+        </div>
+        <div style="border-left:3px solid var(--gold);padding-left:12px">
+          <div style="font-size:14px;color:var(--navy);font-style:italic;margin-bottom:3px">"Bien qu'elle <strong>soit</strong> compétente, elle n'a pas obtenu le poste."</div>
+          <div class="small muted">→ bien que + subjonctif (être irrégulier)</div>
+        </div>
+        <div style="border-left:3px solid var(--gold);padding-left:12px">
+          <div style="font-size:14px;color:var(--navy);font-style:italic;margin-bottom:3px">"Nous agissons pour que la situation <strong>s'améliore</strong> rapidement."</div>
+          <div class="small muted">→ pour que + subjonctif</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="goScreen('s-exercises')">Practicar ahora →</button>
+  </div>
+</div>
+
+<!-- EXERCISES (Mixed) -->
+<div id="s-exercises" class="screen">
+  <div id="ex-progress-bar" class="progress-top"><div class="progress-top-fill" id="exPBar" style="width:0%"></div></div>
+  <div style="background:var(--white);padding:12px 18px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--cream2)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="label" id="ex-type-lbl">Choix multiple</span>
+    </div>
+    <div style="display:flex;gap:3px" id="hearts">
+      <span style="font-size:18px">❤️</span><span style="font-size:18px">❤️</span><span style="font-size:18px">❤️</span>
+    </div>
+  </div>
+
+  <!-- EX 1: MCQ -->
+  <div id="ex1" class="sec">
+    <div class="small muted" style="margin-bottom:6px">Exercice 1/4 · Subjonctif</div>
+    <div class="h2" style="margin-bottom:16px">Complétez la phrase :</div>
+    <div style="background:var(--cream);border-radius:var(--radius-sm);padding:16px;font-size:16px;margin-bottom:20px;line-height:1.8;color:var(--navy)">
+      Il faut que tu _______ avant midi si tu veux obtenir ce résultat.
+    </div>
+    <div id="mcq1">
+      <button class="opt" onclick="doMCQ(this,'arriver','arrives')"><span class="opt-letter">A</span>arriver</button>
+      <button class="opt" onclick="doMCQ(this,'arrives','arrives')"><span class="opt-letter">B</span>arrives</button>
+      <button class="opt" onclick="doMCQ(this,'arriveras','arrives')"><span class="opt-letter">C</span>arriveras</button>
+      <button class="opt" onclick="doMCQ(this,'sois arrivé','arrives')"><span class="opt-letter">D</span>sois arrivé</button>
+    </div>
+    <div id="mcqfb1" class="feedback"></div>
+    <button id="nxt1" class="btn btn-primary" style="margin-top:16px;display:none" onclick="showEx(2)">Continuer →</button>
+  </div>
+
+  <!-- EX 2: FILL BLANK -->
+  <div id="ex2" class="sec" style="display:none">
+    <div class="small muted" style="margin-bottom:6px">Exercice 2/4 · Vocabulaire</div>
+    <div class="h2" style="margin-bottom:16px">Choisissez le mot correct :</div>
+    <div style="background:var(--cream);border-radius:var(--radius-sm);padding:16px;font-size:15px;margin-bottom:16px;line-height:2.2;color:var(--navy)">
+      La _________ entre les riches et les pauvres s'est creusée ces dernières années.
+    </div>
+    <div class="word-bank" id="wb2">
+      <button class="wchip" onclick="doFill(this,'disparité','inégalité','fb2')">disparité</button>
+      <button class="wchip" onclick="doFill(this,'différence','inégalité','fb2')">différence</button>
+      <button class="wchip" onclick="doFill(this,'inégalité','inégalité','fb2')">inégalité</button>
+      <button class="wchip" onclick="doFill(this,'banlieue','inégalité','fb2')">banlieue</button>
+    </div>
+    <div id="fb2" class="feedback"></div>
+    <button id="nxt2" class="btn btn-primary" style="margin-top:16px;display:none" onclick="showEx(3)">Continuer →</button>
+  </div>
+
+  <!-- EX 3: ERROR CORRECTION -->
+  <div id="ex3" class="sec" style="display:none">
+    <div class="small muted" style="margin-bottom:6px">Exercice 3/4 · Correction d'erreurs</div>
+    <div class="h2" style="margin-bottom:14px">Trouvez l'erreur dans la phrase :</div>
+    <div style="background:var(--cream);border-radius:var(--radius-sm);padding:16px;font-size:15px;margin-bottom:18px;line-height:1.8;color:var(--navy)">
+      "Bien qu'il <strong style="color:var(--danger)">est</strong> très intelligent, il n'a pas réussi son examen."
+    </div>
+    <div id="mcq3">
+      <button class="opt" onclick="doMCQ3(this,'Le verbe \"est\" devrait être \"soit\" (subjonctif après bien que)',true)">
+        <span class="opt-letter">A</span>"est" → "soit" (subjonctif de être)
+      </button>
+      <button class="opt" onclick="doMCQ3(this,'',false)">
+        <span class="opt-letter">B</span>"très" → "beaucoup" (registre)
+      </button>
+      <button class="opt" onclick="doMCQ3(this,'',false)">
+        <span class="opt-letter">C</span>Falta el artículo antes de "examen"
+      </button>
+      <button class="opt" onclick="doMCQ3(this,'',false)">
+        <span class="opt-letter">D</span>La frase es correcta
+      </button>
+    </div>
+    <div id="fb3" class="feedback"></div>
+    <button id="nxt3" class="btn btn-primary" style="margin-top:16px;display:none" onclick="showEx(4)">Continuer →</button>
+  </div>
+
+  <!-- EX 4: SENTENCE ORDER -->
+  <div id="ex4" class="sec" style="display:none">
+    <div class="small muted" style="margin-bottom:6px">Exercice 4/4 · Reformulation</div>
+    <div class="h2" style="margin-bottom:14px">Reformulez avec le mot donné :</div>
+    <div style="background:var(--blue-bg);border-radius:var(--radius-sm);padding:14px;margin-bottom:10px;font-size:14px;color:var(--navy)">
+      <strong>Phrase :</strong> "On sait qu'il est coupable."<br>
+      <strong>Mot :</strong> <span style="color:var(--blue);font-weight:700">bien que</span>
+    </div>
+    <textarea id="reform-input" class="write-area" placeholder="Réécrivez la phrase en commençant par 'Bien que...'" style="min-height:80px;margin-bottom:10px"></textarea>
+    <div style="background:var(--cream);border-radius:var(--radius-xs);padding:11px 13px;font-size:13px;color:var(--text2);margin-bottom:12px">
+      💡 Recuerda: <em>bien que</em> + subjonctif. El verbo "savoir" → que il <strong>sache</strong>
+    </div>
+    <button class="btn btn-primary" onclick="checkReform()">Vérifier ma réponse →</button>
+    <div id="fb4" class="feedback"></div>
+    <div id="ex4-done" style="display:none;margin-top:16px">
+      <div class="card-gold" style="padding:20px;text-align:center;margin-bottom:14px">
+        <div style="font-size:36px;margin-bottom:8px">🎉</div>
+        <div style="font-family:var(--font-serif);font-size:22px;color:var(--navy);margin-bottom:4px">+50 XP ganados</div>
+        <div style="color:rgba(13,27,42,.65);font-size:14px">Série complète — 3/4 correctes</div>
+      </div>
+      <button class="btn btn-primary" onclick="goScreen('s-home')">Volver al inicio</button>
+    </div>
+  </div>
+</div>
+
+<!-- VOCABULARY -->
+<div id="s-vocab" class="screen">
+  <div class="sec">
+    <div class="tabs" style="margin-bottom:16px">
+      <button class="tab-btn active" onclick="switchTab('tab-fc','tab-th','tab-ex',this)">Flashcards</button>
+      <button class="tab-btn" onclick="switchTab('tab-th','tab-fc','tab-ex',this)">Thèmes</button>
+      <button class="tab-btn" onclick="switchTab('tab-ex','tab-fc','tab-th',this)">Exercice</button>
+    </div>
+
+    <!-- FLASHCARDS -->
+    <div id="tab-fc">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <span class="small muted">Carte <span id="fc-idx">3</span>/12 · <strong>Société</strong></span>
+        <span class="chip chip-green">+8 XP cette session</span>
+      </div>
+      <div class="fc-wrap" id="fc" onclick="flipFC()">
+        <div class="fc-inner">
+          <div class="fc-face fc-front">
+            <span style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.38);margin-bottom:4px">Mot français</span>
+            <span style="font-family:var(--font-serif);font-size:30px;color:var(--gold)" id="fc-word">la banlieue</span>
+            <span style="color:rgba(255,255,255,.35);font-size:12px;margin-top:12px">Toca para ver →</span>
+          </div>
+          <div class="fc-face fc-back">
+            <span style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(13,27,42,.45);margin-bottom:4px">Español</span>
+            <span style="font-family:var(--font-serif);font-size:24px;color:var(--navy)" id="fc-trans">el suburbio / las afueras</span>
+            <span style="font-size:13px;color:rgba(13,27,42,.7);margin-top:10px;text-align:center;line-height:1.6;padding:0 10px" id="fc-ex">
+              "Les habitants de la banlieue parisienne ont manifesté contre la hausse des transports."
+            </span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn btn-sm btn-danger" style="flex:1" onclick="cardAct('again')">😕 Repetir</button>
+        <button class="btn btn-sm btn-warn" style="flex:1" onclick="cardAct('hard')">🤔 Difícil</button>
+        <button class="btn btn-sm btn-success" style="flex:1" onclick="cardAct('good')">✓ Bien</button>
+        <button class="btn btn-sm btn-primary" style="flex:1;background:var(--navy)" onclick="cardAct('easy')">⚡ Fácil</button>
+      </div>
+      <div id="fc-fb" class="feedback" style="margin-top:10px"></div>
+    </div>
+
+    <!-- THEMES -->
+    <div id="tab-th" style="display:none">
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div class="card" style="cursor:pointer" onclick="goScreen('s-vocab')">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><div class="h3">Société & Citoyenneté</div><div class="small muted">48 mots · 32 revisados</div></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="chip chip-green">67%</span><span style="color:#c0c0c0;font-size:20px">›</span></div>
+          </div>
+          <div class="pbar" style="margin-top:10px;height:4px"><div class="pbar-fill pbar-green" style="width:67%;height:100%"></div></div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><div class="h3">Travail & Économie</div><div class="small muted">52 mots · 18 revisados</div></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="chip chip-blue">35%</span><span style="color:#c0c0c0;font-size:20px">›</span></div>
+          </div>
+          <div class="pbar" style="margin-top:10px;height:4px"><div class="pbar-fill pbar-blue" style="width:35%;height:100%"></div></div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><div class="h3">Environnement & Écologie</div><div class="small muted">38 mots · 5 revisados</div></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="chip chip-gray">13%</span><span style="color:#c0c0c0;font-size:20px">›</span></div>
+          </div>
+          <div class="pbar" style="margin-top:10px;height:4px"><div class="pbar-fill pbar-orange" style="width:13%;height:100%"></div></div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><div class="h3">Technologies & Médias</div><div class="small muted">44 mots · 0 revisados</div></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="chip chip-gray">0%</span><span style="color:#c0c0c0;font-size:20px">›</span></div>
+          </div>
+          <div class="pbar" style="margin-top:10px;height:4px"><div class="pbar-fill pbar-teal" style="width:0%;height:100%"></div></div>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><div class="h3">Santé & Bien-être</div><div class="small muted">36 mots · 8 revisados</div></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="chip chip-gray">22%</span><span style="color:#c0c0c0;font-size:20px">›</span></div>
+          </div>
+          <div class="pbar" style="margin-top:10px;height:4px"><div class="pbar-fill" style="width:22%;height:100%;background:#be123c;border-radius:100px"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXERCISE FILL -->
+    <div id="tab-ex" style="display:none">
+      <div class="label" style="margin-bottom:8px">Completar con el vocabulario correcto</div>
+      <div style="background:var(--cream);border-radius:var(--radius-sm);padding:16px;font-size:15px;line-height:2.2;color:var(--navy);margin-bottom:14px">
+        Le gouvernement a décidé de mettre en place des mesures pour lutter contre les _________ sociales.
+      </div>
+      <div class="word-bank">
+        <button class="wchip" onclick="doFill(this,'disparités','inégalités','fb-vex')">disparités</button>
+        <button class="wchip" onclick="doFill(this,'inégalités','inégalités','fb-vex')">inégalités</button>
+        <button class="wchip" onclick="doFill(this,'différences','inégalités','fb-vex')">différences</button>
+        <button class="wchip" onclick="doFill(this,'lacunes','inégalités','fb-vex')">lacunes</button>
+      </div>
+      <div id="fb-vex" class="feedback" style="margin-top:12px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTENING -->
+<div id="s-listen" class="screen">
+  <div class="sec">
+    <div class="label" style="margin-bottom:4px">Document audio — Débat</div>
+    <div class="h2" style="margin-bottom:4px;font-family:var(--font-serif)">Les réseaux sociaux et la démocratie</div>
+    <div class="small muted" style="margin-bottom:16px">France Inter · Débat · 3 min 24 s · Niveau B2</div>
+
+    <!-- AUDIO PLAYER -->
+    <div class="audio-wrap" style="margin-bottom:14px">
+      <button class="play-btn" id="playbtn" onclick="toggleAudio()">▶</button>
+      <div class="wave-bars" id="wbars">
+        <div class="wbar" style="height:5px"></div><div class="wbar" style="height:13px"></div>
+        <div class="wbar" style="height:9px"></div><div class="wbar" style="height:19px"></div>
+        <div class="wbar" style="height:7px"></div><div class="wbar" style="height:16px"></div>
+        <div class="wbar" style="height:11px"></div><div class="wbar" style="height:21px"></div>
+        <div class="wbar" style="height:5px"></div><div class="wbar" style="height:14px"></div>
+        <div class="wbar" style="height:10px"></div><div class="wbar" style="height:18px"></div>
+        <div class="wbar" style="height:8px"></div><div class="wbar" style="height:22px"></div>
+        <div class="wbar" style="height:6px"></div>
+      </div>
+      <span style="color:rgba(255,255,255,.45);font-size:12px;font-family:monospace" id="aud-time">0:00</span>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="btn btn-sm btn-outline" style="flex:1" onclick="toggleTranscript()">📄 Transcripción</button>
+      <button class="btn btn-sm" style="flex:1;background:var(--cream2);color:var(--navy2);font-weight:500" onclick="replayAudio()">🔁 Repetir</button>
+      <button class="btn btn-sm" style="flex:1;background:var(--cream2);color:var(--navy2);font-weight:500">0.75×</button>
+    </div>
+
+    <!-- TRANSCRIPT -->
+    <div id="transcript" style="display:none" class="card" style="margin-bottom:14px">
+      <div style="font-size:13.5px;line-height:1.85;color:#4a5568;font-style:italic">
+        <strong style="color:var(--navy);font-style:normal">Journaliste :</strong> Pensez-vous que les plateformes numériques constituent une menace pour nos démocraties ?<br><br>
+        <strong style="color:var(--navy);font-style:normal">Expert :</strong> C'est une question complexe. D'un côté, ces outils permettent une participation citoyenne accrue. De l'autre, ils favorisent la désinformation et les chambres d'écho. Il faudrait une régulation intelligente qui préserve la liberté d'expression tout en limitant les abus...
+      </div>
+    </div>
+
+    <!-- COMPREHENSION QUESTIONS -->
+    <div class="label" style="margin-bottom:12px">Questions de compréhension (3)</div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="h3" style="margin-bottom:12px">1. Quel est le point de vue de l'expert ?</div>
+      <div id="lq1">
+        <button class="opt" onclick="doListen(this,'A','B','lfb1')"><span class="opt-letter">A</span>Il considère que les réseaux sont uniquement négatifs</button>
+        <button class="opt" onclick="doListen(this,'B','B','lfb1')"><span class="opt-letter">B</span>Il présente une analyse nuancée avec deux aspects</button>
+        <button class="opt" onclick="doListen(this,'C','B','lfb1')"><span class="opt-letter">C</span>Il refuse de donner son avis personnel</button>
+      </div>
+      <div id="lfb1" class="feedback"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px">
+      <div class="h3" style="margin-bottom:12px">2. Quelle solution propose-t-il ?</div>
+      <div id="lq2">
+        <button class="opt" onclick="doListen(this,'A','C','lfb2')"><span class="opt-letter">A</span>Interdire complètement les réseaux sociaux</button>
+        <button class="opt" onclick="doListen(this,'B','C','lfb2')"><span class="opt-letter">B</span>Ne rien changer à la situation actuelle</button>
+        <button class="opt" onclick="doListen(this,'C','C','lfb2')"><span class="opt-letter">C</span>Une régulation qui équilibre liberté et contrôle</button>
+      </div>
+      <div id="lfb2" class="feedback"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px">
+      <div class="h3" style="margin-bottom:10px">3. Expression à retrouver</div>
+      <div class="body" style="margin-bottom:12px">L'expert utilise une expression pour décrire des espaces digitales donde la gente solo escucha opiniones parecidas. ¿Cuál es?</div>
+      <div class="word-bank">
+        <button class="wchip" onclick="doFill(this,'bulles de filtre','chambres d\'écho','lfb3')">bulles de filtre</button>
+        <button class="wchip" onclick="doFill(this,'chambres d\'écho','chambres d\'écho','lfb3')">chambres d'écho</button>
+        <button class="wchip" onclick="doFill(this,'forums publics','chambres d\'écho','lfb3')">forums publics</button>
+      </div>
+      <div id="lfb3" class="feedback" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WRITING -->
+<div id="s-writing" class="screen">
+  <div class="sec">
+    <div class="card-gold" style="margin-bottom:16px">
+      <div style="color:rgba(13,27,42,.6);font-size:11px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px">📝 Sujet du jour — B2</div>
+      <div style="color:var(--navy);font-size:15.5px;font-weight:600;line-height:1.55">
+        "Le télétravail a-t-il transformé positivement notre rapport au travail ?" Donnez votre avis argumenté en 200–250 mots.
+      </div>
+    </div>
+
+    <!-- CRITERIA -->
+    <div class="card" style="margin-bottom:14px">
+      <div class="label" style="margin-bottom:10px">Critères d'évaluation B2</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="body">Cohérence et cohésion</span><span class="chip chip-gray">25 pts</span>
+        </div>
+        <div class="div"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="body">Richesse lexicale</span><span class="chip chip-gray">25 pts</span>
+        </div>
+        <div class="div"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="body">Correction grammaticale</span><span class="chip chip-gray">25 pts</span>
+        </div>
+        <div class="div"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="body">Pertinence argumentative</span><span class="chip chip-gray">25 pts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRUCTURE GUIDE -->
+    <div class="card" style="margin-bottom:14px">
+      <div class="label" style="margin-bottom:9px">Structure recommandée B2</div>
+      <div style="display:flex;gap:0;position:relative">
+        <div style="position:absolute;left:15px;top:0;bottom:0;width:1px;background:var(--cream2);z-index:0"></div>
+        <div style="display:flex;flex-direction:column;gap:10px;width:100%">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;font-weight:700;flex-shrink:0;position:relative;z-index:1">1</div>
+            <div><div class="h3">Introduction</div><div class="small muted">Contexte + problématique + annonce du plan</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;font-weight:700;flex-shrink:0;position:relative;z-index:1">2</div>
+            <div><div class="h3">Développement — Pour</div><div class="small muted">Arguments + exemple + connecteur</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;font-weight:700;flex-shrink:0;position:relative;z-index:1">3</div>
+            <div><div class="h3">Développement — Contre</div><div class="small muted">Nuances + limites + concession</div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;color:var(--navy);font-size:11px;font-weight:700;flex-shrink:0;position:relative;z-index:1">4</div>
+            <div><div class="h3">Conclusion</div><div class="small muted">Synthèse + ouverture</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONNECTORS -->
+    <div class="label" style="margin-bottom:8px">Connecteurs B2 — toca para insertar</div>
+    <div class="conn-bar" style="margin-bottom:14px">
+      <button class="conn-pill" onclick="ins('D\'une part, ')">D'une part</button>
+      <button class="conn-pill" onclick="ins('D\'autre part, ')">D'autre part</button>
+      <button class="conn-pill" onclick="ins('En revanche, ')">En revanche</button>
+      <button class="conn-pill" onclick="ins('Par conséquent, ')">Par conséquent</button>
+      <button class="conn-pill" onclick="ins('Néanmoins, ')">Néanmoins</button>
+      <button class="conn-pill" onclick="ins('De surcroît, ')">De surcroît</button>
+      <button class="conn-pill" onclick="ins('Cependant, ')">Cependant</button>
+      <button class="conn-pill" onclick="ins('En outre, ')">En outre</button>
+      <button class="conn-pill" onclick="ins('Bien que ')">Bien que</button>
+      <button class="conn-pill" onclick="ins('À titre d\'exemple, ')">À titre d'exemple</button>
+    </div>
+
+    <textarea class="write-area" id="wtext" placeholder="Rédigez votre texte ici...&#10;&#10;Conseil : commencez par l'introduction." onkeyup="wCount()"></textarea>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:9px 0 16px">
+      <span id="wcnt" class="small muted">0 / 250 mots</span>
+      <span id="wind" class="chip chip-gray" style="font-size:11px">Empieza a escribir</span>
+    </div>
+
+    <button class="btn btn-primary" onclick="submitW()" style="margin-bottom:8px">Soumettre pour correction →</button>
+    <button class="btn btn-outline" onclick="clearW()" style="margin-bottom:18px">🗑 Borrar y empezar de nuevo</button>
+    <div id="wfb" class="feedback"></div>
+  </div>
+</div>
+
+<!-- EXAM SIMULATION -->
+<div id="s-exam" class="screen">
+  <div class="exam-bar">
+    <div>
+      <div style="color:white;font-size:15px;font-weight:700">🏆 Simulacre DELF B2</div>
+      <div style="color:rgba(255,255,255,.7);font-size:11px">Conditions réelles d'examen</div>
+    </div>
+    <div class="timer" id="exam-timer">45:00</div>
+  </div>
+
+  <div class="sec">
+    <div class="card" style="margin-bottom:13px;border-left:3px solid var(--danger)">
+      <div style="color:var(--danger);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px">Conditions du DELF officiel</div>
+      <div class="body">Este simulacro replica exactamente el DELF B2. Duración total: 3h15 · 4 épreuves · Nota de corte: 50/100 (25/50 por parte).</div>
+    </div>
+
+    <!-- EXAM PARTS -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+
+      <div class="card" style="border:1.5px solid var(--success-border);cursor:pointer">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div style="width:44px;height:44px;border-radius:11px;background:var(--success-bg);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🎧</div>
+          <div style="flex:1">
+            <div class="h3">Compréhension de l'oral</div>
+            <div class="small muted">3 documents · 30 min · /25 pts</div>
+            <div class="pbar" style="margin-top:7px;height:3px"><div class="pbar-fill pbar-green" style="width:100%;height:100%"></div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span class="chip chip-green">✓ 19/25</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border:1.5px solid var(--navy);cursor:pointer" onclick="goScreen('s-exercises')">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div style="width:44px;height:44px;border-radius:11px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📖</div>
+          <div style="flex:1">
+            <div class="h3">Compréhension des écrits</div>
+            <div class="small muted">2 textes · 60 min · /25 pts</div>
+            <div class="pbar" style="margin-top:7px;height:3px"><div class="pbar-fill pbar-navy" style="width:45%;height:100%"></div></div>
+          </div>
+          <span class="chip chip-navy">En cours</span>
+        </div>
+      </div>
+
+      <div class="card" style="opacity:.55">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div style="width:44px;height:44px;border-radius:11px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">✍️</div>
+          <div style="flex:1"><div class="h3">Production écrite</div><div class="small muted">1 texte · 60 min · /25 pts</div></div>
+          <span class="chip chip-gray">🔒</span>
+        </div>
+      </div>
+
+      <div class="card" style="opacity:.55">
+        <div style="display:flex;align-items:center;gap:13px">
+          <div style="width:44px;height:44px;border-radius:11px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🎤</div>
+          <div style="flex:1"><div class="h3">Production orale</div><div class="small muted">Monologue + Interaction · 20 min · /25 pts</div></div>
+          <span class="chip chip-gray">🔒</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIAL SCORE -->
+    <div class="card-cream" style="padding:16px;margin-bottom:18px;text-align:center">
+      <div class="label" style="margin-bottom:6px">Puntaje actual (2/4 épreuves)</div>
+      <div style="font-family:var(--font-serif);font-size:42px;color:var(--navy);line-height:1">19<span style="font-size:20px;color:#8a8a8a">/50</span></div>
+      <div class="small muted" style="margin-top:4px">Necesitas 25/50 para aprobar · Vas bien</div>
+    </div>
+
+    <button class="btn btn-gold" onclick="startExam()">Continuar examen →</button>
+    <button class="btn btn-outline" style="margin-top:10px" onclick="goScreen('s-progress')">Ver mis estadísticas</button>
+  </div>
+</div>
+
+<!-- PROGRESS / PROFILE -->
+<div id="s-progress" class="screen">
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-direction:column;gap:12px;margin-bottom:20px">
+      <div class="avatar" style="width:70px;height:70px;font-size:30px" id="prog-avatar">M</div>
+      <div>
+        <div style="color:white;font-size:20px;font-weight:500;font-family:var(--font-serif);text-align:center" id="prog-name">Marcos</div>
+        <div style="color:rgba(255,255,255,.5);font-size:13px;text-align:center">Estudiante activo · 7 días de racha</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;background:rgba(255,255,255,.09);border-radius:10px;padding:12px;text-align:center">
+        <div style="color:var(--gold);font-family:var(--font-serif);font-size:22px">1,240</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;text-transform:uppercase;letter-spacing:.5px">XP Total</div>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,.09);border-radius:10px;padding:12px;text-align:center">
+        <div style="color:var(--gold);font-family:var(--font-serif);font-size:22px">142</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Ejercicios</div>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,.09);border-radius:10px;padding:12px;text-align:center">
+        <div style="color:var(--gold);font-family:var(--font-serif);font-size:22px">87%</div>
+        <div style="color:rgba(255,255,255,.5);font-size:11px;text-transform:uppercase;letter-spacing:.5px">Precisión</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <!-- B2 TARGET -->
+    <div class="card-navy" style="margin-bottom:14px;padding:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div style="color:rgba(255,255,255,.55);font-size:12px;margin-bottom:3px">Nivel actual → Objetivo</div>
+          <div style="color:white;font-family:var(--font-serif);font-size:24px">B1 → <span style="color:var(--gold)">B2</span></div>
+          <div style="color:rgba(255,255,255,.4);font-size:12px;margin-top:2px">~3 meses con rutina diaria</div>
+        </div>
+        <div style="background:var(--gold);color:var(--navy);border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0">
+          <span style="font-family:var(--font-serif);font-size:18px;font-weight:400">62</span>
+          <span style="font-size:9px;font-weight:600">%</span>
+        </div>
+      </div>
+      <div style="color:rgba(255,255,255,.6);font-size:12px;margin-bottom:7px">Progreso global</div>
+      <div class="pbar" style="height:10px"><div class="pbar-fill pbar-gold" style="width:62%;height:100%"></div></div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="label" style="margin-bottom:11px">Compétences détaillées</div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">🎧 Compréhension orale</span><span style="font-size:13px;font-weight:600;color:var(--navy)">74%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-blue" style="width:74%;height:100%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">📖 Compréhension écrite</span><span style="font-size:13px;font-weight:600;color:var(--navy)">81%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-green" style="width:81%;height:100%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">✍️ Production écrite</span><span style="font-size:13px;font-weight:600;color:var(--navy)">58%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-purple" style="width:58%;height:100%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">🎤 Production orale</span><span style="font-size:13px;font-weight:600;color:var(--navy)">45%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-orange" style="width:45%;height:100%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">📚 Grammaire</span><span style="font-size:13px;font-weight:600;color:var(--navy)">67%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-gold" style="width:67%;height:100%"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span class="body">💬 Vocabulaire</span><span style="font-size:13px;font-weight:600;color:var(--navy)">72%</span></div>
+          <div class="pbar" style="height:6px"><div class="pbar-fill pbar-teal" style="width:72%;height:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BADGES -->
+    <div class="label" style="margin-bottom:11px">Logros desbloqueados</div>
+    <div class="badge-grid" style="margin-bottom:18px">
+      <div class="bdg"><div class="bdg-icon earned">🔥</div><span class="bdg-name">Racha 7 días</span></div>
+      <div class="bdg"><div class="bdg-icon earned">📚</div><span class="bdg-name">100 ejercicios</span></div>
+      <div class="bdg"><div class="bdg-icon earned">⭐</div><span class="bdg-name">Primera nota A</span></div>
+      <div class="bdg"><div class="bdg-icon earned">🎯</div><span class="bdg-name">Meta semanal</span></div>
+      <div class="bdg"><div class="bdg-icon locked">🏆</div><span class="bdg-name">B2 listo</span></div>
+      <div class="bdg"><div class="bdg-icon locked">📜</div><span class="bdg-name">Simulacro completo</span></div>
+      <div class="bdg"><div class="bdg-icon locked">🌟</div><span class="bdg-name">Racha 30 días</span></div>
+      <div class="bdg"><div class="bdg-icon locked">🎓</div><span class="bdg-name">Certificado B2</span></div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div class="label" style="margin-bottom:11px">⚙️ Administración</div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="admin-row">
+        <div><div class="h3">Nombre de usuario</div><div class="small muted" id="disp-name">Marcos</div></div>
+        <button class="btn btn-sm btn-outline" style="width:auto" onclick="editName()">Editar</button>
+      </div>
+      <div class="admin-row">
+        <div><div class="h3">Rutina diaria</div><div class="small muted">Meta de tiempo</div></div>
+        <select id="daily-min" style="border:1.5px solid var(--cream2);border-radius:var(--radius-xs);padding:6px 10px;font-family:var(--font-sans);font-size:13px;background:var(--white);color:var(--navy);outline:none" onchange="saveRoutine()">
+          <option value="10">10 min</option>
+          <option value="20" selected>20 min</option>
+          <option value="30">30 min</option>
+          <option value="60">1 hora</option>
+        </select>
+      </div>
+      <div class="admin-row">
+        <div><div class="h3">Notificaciones</div><div class="small muted">Recordatorio diario</div></div>
+        <button class="toggle on" id="notif-toggle" onclick="toggleSwitch(this)"></button>
+      </div>
+      <div class="admin-row">
+        <div><div class="h3">Modo oscuro</div><div class="small muted">Próximamente</div></div>
+        <button class="toggle" id="dark-toggle" onclick="toggleSwitch(this)"></button>
+      </div>
+      <div class="admin-row" style="border-bottom:none">
+        <div><div class="h3">Reiniciar progreso</div><div class="small muted" style="color:var(--danger)">Acción irreversible</div></div>
+        <button class="btn btn-sm btn-danger" style="width:auto" onclick="resetProgress()">Reiniciar</button>
+      </div>
+    </div>
+
+    <!-- SHARE / PUBLISH -->
+    <div class="card-navy" style="margin-bottom:18px">
+      <div style="color:var(--gold2);font-size:13px;font-weight:600;margin-bottom:8px">🚀 Versión para estudiantes</div>
+      <div style="color:rgba(255,255,255,.65);font-size:13px;line-height:1.6;margin-bottom:14px">
+        Comparte esta app con tus alumnos. Pueden instalarla en su celular directamente desde el navegador (PWA).
+      </div>
+      <button class="btn btn-gold" onclick="shareApp()">📤 Compartir app</button>
+      <button class="btn btn-outline" style="margin-top:8px;color:var(--gold2);border-color:var(--gold2)" onclick="copyLink()">🔗 Copiar enlace</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottomnav">
+  <button class="nav-btn active" id="nb-home" onclick="nav('home')">
+    <span class="nav-icon">🏠</span><span>Inicio</span><div class="nav-dot"></div>
+  </button>
+  <button class="nav-btn" id="nb-learn" onclick="nav('learn')">
+    <span class="nav-icon">📖</span><span>Aprender</span>
+  </button>
+  <button class="nav-btn" id="nb-prac" onclick="nav('prac')">
+    <span class="nav-icon">⚡</span><span>Practicar</span>
+  </button>
+  <button class="nav-btn" id="nb-prog" onclick="nav('prog')">
+    <span class="nav-icon">📊</span><span>Progreso</span>
+  </button>
+  <button class="nav-btn" id="nb-exam" onclick="nav('exam')">
+    <span class="nav-icon">🏆</span><span>Examen</span>
+  </button>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ==================== STATE ====================
+const APP = {
+  name: localStorage.getItem('fb2_name') || 'Marcos',
+  xp: parseInt(localStorage.getItem('fb2_xp') || '1240'),
+  streak: parseInt(localStorage.getItem('fb2_streak') || '7'),
+  fcIdx: 0,
+  playing: false,
+  audioSec: 0,
+  audioTimer: null,
+  examTimer: null,
+  examSec: 45*60
+};
+
+const FLASHCARDS = [
+  {fr:'la banlieue',es:'el suburbio / las afueras',ex:'"Les habitants de la banlieue parisienne ont manifesté."'},
+  {fr:'l\'inégalité',es:'la desigualdad',ex:'"Les inégalités sociales se sont creusées ces dernières années."'},
+  {fr:'la désinformation',es:'la desinformación',ex:'"La désinformation représente un danger pour la démocratie."'},
+  {fr:'la mondialisation',es:'la globalización',ex:'"La mondialisation a profondément modifié l\'économie mondiale."'},
+  {fr:'le développement durable',es:'el desarrollo sostenible',ex:'"Le développement durable est devenu une priorité politique."'},
+  {fr:'l\'intégration',es:'la integración',ex:'"L\'intégration des migrants nécessite des politiques adaptées."'},
+  {fr:'la précarité',es:'la precariedad',ex:'"La précarité de l\'emploi touche surtout les jeunes."'},
+  {fr:'la citoyenneté',es:'la ciudadanía',ex:'"La citoyenneté implique des droits mais aussi des devoirs."'},
+  {fr:'le chômage',es:'el desempleo',ex:'"Le chômage a baissé de 2% selon les dernières statistiques."'},
+  {fr:'la hausse',es:'el aumento / la subida',ex:'"On observe une hausse inquiétante des prix alimentaires."'},
+  {fr:'la nuance',es:'el matiz',ex:'"Il faut apporter une nuance importante à cette affirmation."'},
+  {fr:'l\'enjeu',es:'el reto / la apuesta',ex:'"Les enjeux du changement climatique sont considérables."'}
+];
+
+// ==================== NAVIGATION ====================
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  updateTopbar(id);
+}
+
+function updateTopbar(id) {
+  const tb = document.getElementById('topbar');
+  const homeBar = `<span class="topbar-logo">FrançaisB2</span>
+    <div class="topbar-right">
+      <span class="chip chip-navy" id="streak-badge">🔥 ${APP.streak}</span>
+      <span style="color:var(--gold2);font-size:13px;font-weight:500" id="xp-badge">${APP.xp.toLocaleString()} XP</span>
+    </div>`;
+  const backBars = {
+    's-lesson': ['📚 Grammaire','s-home'],
+    's-exercises': ['⚡ Exercices','s-home'],
+    's-vocab': ['💬 Vocabulaire','s-home'],
+    's-listen': ['🎧 Compréhension orale','s-home'],
+    's-writing': ['✍️ Production écrite','s-home'],
+    's-exam': ['🏆 Simulacre B2','s-home'],
+    's-progress': ['📊 Mon profil','s-home']
+  };
+  if (id === 's-home') {
+    tb.innerHTML = homeBar;
+  } else if (backBars[id]) {
+    const [title, back] = backBars[id];
+    tb.innerHTML = `<button class="topbar-back" onclick="goScreen('${back}')">‹</button>
+      <span class="topbar-title">${title}</span>
+      <span class="chip chip-navy" style="font-size:11px">B2</span>`;
+  }
+}
+
+function nav(section) {
+  const map = {home:'s-home', learn:'s-lesson', prac:'s-exercises', prog:'s-progress', exam:'s-exam'};
+  const ids = ['nb-home','nb-learn','nb-prac','nb-prog','nb-exam'];
+  ids.forEach(i => {
+    const btn = document.getElementById(i);
+    btn.classList.remove('active');
+    const dot = btn.querySelector('.nav-dot');
+    if (dot) dot.remove();
+  });
+  const active = document.getElementById('nb-'+section);
+  if (active) {
+    active.classList.add('active');
+    active.insertAdjacentHTML('beforeend','<div class="nav-dot"></div>');
+  }
+  goScreen(map[section]);
+}
+
+// ==================== EXERCISES ====================
+let mcqDone = {1:false, 2:false, 3:false};
+
+function doMCQ(btn, chosen, correct) {
+  if (mcqDone[1]) return;
+  mcqDone[1] = true;
+  document.querySelectorAll('#mcq1 .opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('mcqfb1');
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    addXP(15);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '<strong>✓ Correct !</strong> Le subjonctif après "il faut que" est obligatoire. <em>arriver → que tu arrives</em> — radical "arriv" + "-es".';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('#mcq1 .opt').forEach(b => { if (b.textContent.includes(correct)) b.classList.add('correct'); });
+    fb.className = 'feedback show err';
+    fb.innerHTML = `✗ La réponse correcte est <strong>"${correct}"</strong>. Après "il faut que", on utilise toujours le subjonctif présent.`;
+  }
+  document.getElementById('nxt1').style.display = 'flex';
+  document.getElementById('exPBar').style.width = '25%';
+}
+
+function doMCQ3(btn, msg, correct) {
+  if (mcqDone[3]) return;
+  mcqDone[3] = true;
+  document.querySelectorAll('#mcq3 .opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('fb3');
+  if (correct) {
+    btn.classList.add('correct');
+    addXP(15);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '<strong>✓ Exact !</strong> ' + msg + '<br>Règle : après <em>bien que</em>, le verbe doit être au subjonctif. "être" → subjonctif = "soit".';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('#mcq3 .opt')[0].classList.add('correct');
+    fb.className = 'feedback show err';
+    fb.innerHTML = '✗ La bonne réponse est A. "Bien que" exige le subjonctif : <strong>"soit"</strong>, pas "est" (indicatif).';
+  }
+  document.getElementById('nxt3').style.display = 'flex';
+  document.getElementById('exPBar').style.width = '75%';
+}
+
+function doFill(btn, chosen, correct, fbId) {
+  document.querySelectorAll(`#${btn.parentElement.id || btn.closest('.word-bank').id || 'wb'} .wchip`).forEach(b => b.classList.add('used'));
+  btn.classList.remove('used');
+  const fb = document.getElementById(fbId);
+  if (chosen === correct) {
+    btn.style.background = 'var(--success-bg)';
+    btn.style.borderColor = 'var(--success-border)';
+    btn.style.color = 'var(--success)';
+    addXP(10);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = `<strong>✓ Parfait !</strong> "<em>${correct}</em>" est le terme exact pour ce contexte. Il exprime une différence injuste ou déséquilibrée.`;
+    const nxtId = fbId.replace('fb','nxt');
+    const nxt = document.getElementById(nxtId);
+    if (nxt) nxt.style.display = 'flex';
+  } else {
+    btn.style.background = 'var(--danger-bg)';
+    btn.style.borderColor = 'var(--danger-border)';
+    btn.style.color = 'var(--danger)';
+    fb.className = 'feedback show err';
+    fb.innerHTML = `✗ La réponse attendue est <strong>"${correct}"</strong>. <em>${chosen}</em> serait possible en contexte général, mais "${correct}" est le terme B2 précis ici.`;
+    const nxtId = fbId.replace('fb','nxt');
+    const nxt = document.getElementById(nxtId);
+    if (nxt) nxt.style.display = 'flex';
+  }
+}
+
+function doListen(btn, chosen, correct, fbId) {
+  const container = btn.parentElement;
+  container.querySelectorAll('.opt').forEach(b => b.disabled = true);
+  const fb = document.getElementById(fbId);
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    addXP(15);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '✓ <strong>Correct !</strong> L\'expert utilise une structure argumentative typique du niveau B2 : <em>"d\'un côté... de l\'autre"</em>.';
+  } else {
+    btn.classList.add('wrong');
+    container.querySelectorAll('.opt').forEach(b => { if (b.textContent.includes(correct==='B'?'nuancée':correct==='C'?'équilibre':'') || (correct==='B' && b.textContent.includes('nuancé')) || (correct==='C' && b.textContent.includes('équilibre'))) b.classList.add('correct'); });
+    const answers = {lq1:'B — análisis nuancée', lq2:'C — regulación equilibrada', lq3:'chambres d\'écho'};
+    fb.className = 'feedback show err';
+    fb.innerHTML = `✗ Escucha de nuevo. La respuesta correcta muestra el argumento real del experto.`;
+  }
+}
+
+function showEx(n) {
+  document.querySelectorAll('[id^="ex"]').forEach(e => e.style.display = 'none');
+  document.getElementById('ex'+n).style.display = 'block';
+  const pct = {1:'0%', 2:'25%', 3:'50%', 4:'75%'};
+  document.getElementById('exPBar').style.width = pct[n] || '0%';
+  document.getElementById('ex-type-lbl').textContent = {1:'Choix multiple',2:'Vocabulaire',3:'Correction erreurs',4:'Reformulation'}[n];
+  window.scrollTo(0,0);
+}
+
+function checkReform() {
+  const val = document.getElementById('reform-input').value.trim().toLowerCase();
+  const fb = document.getElementById('fb4');
+  const hasBienQue = val.includes('bien que') || val.includes('bien qu\'');
+  const hasSache = val.includes('sache') || val.includes('soit su');
+  if (hasBienQue && hasSache) {
+    addXP(20);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = '✓ <strong>Excellent !</strong> Bien que + subjonctif parfaitement utilisé. La reformulation respecte les contraintes syntaxiques du B2.';
+    setTimeout(() => {
+      document.getElementById('fb4').style.display = 'none';
+      document.getElementById('ex4-done').style.display = 'block';
+      document.getElementById('exPBar').style.width = '100%';
+    }, 1500);
+  } else if (hasBienQue && !hasSache) {
+    fb.className = 'feedback show hint';
+    fb.innerHTML = '🤔 Bien ! Usas "bien que", pero revisa el verbo. Después de "bien que" necesitas el <strong>subjonctif</strong>: "sache" (no "sait").';
+  } else if (val.length < 5) {
+    fb.className = 'feedback show hint';
+    fb.innerHTML = '💡 Empieza con "Bien qu\'il sache qu\'il est coupable..."';
+  } else {
+    fb.className = 'feedback show err';
+    fb.innerHTML = '✗ La phrase doit commencer par "Bien que + subjonctif". Rappel : <em>bien qu\'il sache...</em>';
+  }
+}
+
+// ==================== CONJUGATION ====================
+function chkC(inp, correct) {
+  const val = inp.value.trim().toLowerCase();
+  if (!val) return;
+  const fb = document.getElementById('cfb');
+  if (val === correct) {
+    inp.classList.remove('wrong'); inp.classList.add('correct');
+    addXP(5);
+    fb.className = 'feedback show ok';
+    fb.innerHTML = `✓ <strong>${correct}</strong> — correct !`;
+  } else if (val.length > 0) {
+    inp.classList.remove('correct'); inp.classList.add('wrong');
+    fb.className = 'feedback show err';
+    fb.innerHTML = `✗ Forma incorrecta. La respuesta correcta es <strong>"${correct}"</strong>.`;
+  }
+}
+
+function revealConj() {
+  const vals = ['finisse','finisses','finisse','finissions','finissiez','finissent'];
+  for (let i = 1; i <= 6; i++) {
+    const inp = document.getElementById('ci'+i);
+    inp.value = vals[i-1];
+    inp.classList.add('correct');
+  }
+  const fb = document.getElementById('cfb');
+  fb.className = 'feedback show info';
+  fb.innerHTML = '📚 Respuestas reveladas. Estudia la formación y vuelve a intentarlo mañana (revisión espaciada).';
+}
+
+// ==================== FLASHCARDS ====================
+function flipFC() {
+  document.getElementById('fc').classList.toggle('flipped');
+}
+
+function cardAct(action) {
+  const msgs = {again:'Repetirás esta carta en 10 min (SRS)',hard:'La verás en 1 día',good:'La verás en 3 días ✓',easy:'La verás en 7 días — ¡dominada!'};
+  const types = {again:'err',hard:'hint',good:'ok',easy:'ok'};
+  const fb = document.getElementById('fc-fb');
+  fb.className = 'feedback show ' + types[action];
+  fb.textContent = msgs[action];
+  if (action === 'good' || action === 'easy') addXP(8);
+  document.getElementById('fc').classList.remove('flipped');
+  APP.fcIdx = (APP.fcIdx + 1) % FLASHCARDS.length;
+  const card = FLASHCARDS[APP.fcIdx];
+  document.getElementById('fc-word').textContent = card.fr;
+  document.getElementById('fc-trans').textContent = card.es;
+  document.getElementById('fc-ex').textContent = card.ex;
+  document.getElementById('fc-idx').textContent = APP.fcIdx + 1;
+  setTimeout(() => { fb.className = 'feedback'; }, 2500);
+}
+
+function switchTab(show, hide1, hide2, btn) {
+  document.getElementById(show).style.display = 'block';
+  document.getElementById(hide1).style.display = 'none';
+  document.getElementById(hide2).style.display = 'none';
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ==================== AUDIO ====================
+function toggleAudio() {
+  APP.playing = !APP.playing;
+  const btn = document.getElementById('playbtn');
+  const bars = document.querySelectorAll('#wbars .wbar');
+  if (APP.playing) {
+    btn.textContent = '⏸';
+    bars.forEach((b, i) => { b.classList.add('playing'); b.style.animationDelay = (i*0.08)+'s'; });
+    APP.audioTimer = setInterval(() => {
+      APP.audioSec++;
+      const m = Math.floor(APP.audioSec / 60);
+      const s = APP.audioSec % 60;
+      document.getElementById('aud-time').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      if (APP.audioSec >= 204) { APP.audioSec = 0; APP.playing = false; toggleAudio(); }
+    }, 1000);
+  } else {
+    btn.textContent = '▶';
+    bars.forEach(b => b.classList.remove('playing'));
+    clearInterval(APP.audioTimer);
+  }
+}
+
+function replayAudio() {
+  APP.audioSec = 0;
+  document.getElementById('aud-time').textContent = '0:00';
+  if (!APP.playing) toggleAudio();
+}
+
+function toggleTranscript() {
+  const t = document.getElementById('transcript');
+  t.style.display = t.style.display === 'none' ? 'block' : 'none';
+}
+
+// ==================== WRITING ====================
+function wCount() {
+  const text = document.getElementById('wtext').value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  document.getElementById('wcnt').textContent = words + ' / 250 mots';
+  const ind = document.getElementById('wind');
+  if (words === 0) { ind.className='chip chip-gray'; ind.textContent='Empieza a escribir'; }
+  else if (words < 50) { ind.className='chip chip-blue'; ind.textContent='En cours...'; }
+  else if (words < 150) { ind.className='chip chip-navy'; ind.textContent='Bien, continúa'; }
+  else if (words < 200) { ind.className='chip'; ind.style.cssText='background:var(--warn-bg);color:var(--warn);padding:4px 10px;border-radius:20px;font-size:11.5px;font-weight:600'; ind.textContent='¡Casi en el mínimo!'; }
+  else if (words <= 250) { ind.className='chip chip-green'; ind.textContent='✓ Longitud ideal'; }
+  else { ind.className='chip chip-red'; ind.textContent='Demasiado largo'; }
+}
+
+function ins(text) {
+  const area = document.getElementById('wtext');
+  const pos = area.selectionStart;
+  const val = area.value;
+  area.value = val.slice(0, pos) + text + val.slice(pos);
+  area.focus();
+  area.selectionStart = area.selectionEnd = pos + text.length;
+  wCount();
+}
+
+function submitW() {
+  const text = document.getElementById('wtext').value.trim();
+  const words = text ? text.split(/\s+/).length : 0;
+  const fb = document.getElementById('wfb');
+  if (words < 30) {
+    fb.className = 'feedback show hint';
+    fb.textContent = '💡 Rédigez au moins 200 mots pour recevoir une correction complète.';
+    return;
+  }
+  addXP(50);
+  fb.className = 'feedback show ok';
+  fb.innerHTML = `<strong>✓ Texte soumis ! +50 XP</strong><br>
+  <strong>Analyse automatique :</strong><br>
+  📝 Longueur : ${words} mots ${words >= 200 && words <= 250 ? '✓' : '⚠️'}<br>
+  🔗 Connecteurs détectés : ${(text.match(/d'une part|d'autre part|cependant|néanmoins|en revanche|par conséquent|en outre|de surcroît|bien que/gi) || []).length} connecteur(s)<br>
+  📊 Registre : formel<br>
+  <em style="color:var(--success)">Para feedback completo con IA, conecta la API de Claude en la versión Pro.</em>`;
+}
+
+function clearW() {
+  if (confirm('¿Borrar todo el texto?')) {
+    document.getElementById('wtext').value = '';
+    wCount();
+    document.getElementById('wfb').className = 'feedback';
+  }
+}
+
+// ==================== EXAM ====================
+function startExam() {
+  if (!APP.examTimer) {
+    APP.examTimer = setInterval(() => {
+      APP.examSec--;
+      if (APP.examSec <= 0) { clearInterval(APP.examTimer); APP.examSec = 0; }
+      const m = Math.floor(APP.examSec / 60);
+      const s = APP.examSec % 60;
+      const el = document.getElementById('exam-timer');
+      if (el) el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }, 1000);
+  }
+  goScreen('s-exercises');
+}
+
+// ==================== ADMIN ====================
+function editName() {
+  const name = prompt('Escribe tu nombre:', APP.name);
+  if (name && name.trim()) {
+    APP.name = name.trim().charAt(0).toUpperCase() + name.trim().slice(1);
+    localStorage.setItem('fb2_name', APP.name);
+    document.getElementById('home-name').textContent = APP.name;
+    document.getElementById('home-avatar').textContent = APP.name.charAt(0).toUpperCase();
+    document.getElementById('prog-name').textContent = APP.name;
+    document.getElementById('prog-avatar').textContent = APP.name.charAt(0).toUpperCase();
+    document.getElementById('disp-name').textContent = APP.name;
+  }
+}
+
+function saveRoutine() {
+  const val = document.getElementById('daily-min').value;
+  localStorage.setItem('fb2_routine', val);
+  showToast('✓ Rutina guardada: ' + val + ' min/día');
+}
+
+function toggleSwitch(btn) {
+  btn.classList.toggle('on');
+  showToast(btn.classList.contains('on') ? '✓ Activado' : '✓ Desactivado');
+}
+
+function resetProgress() {
+  if (confirm('¿Reiniciar todo tu progreso? Esta acción no se puede deshacer.')) {
+    APP.xp = 0; APP.streak = 0;
+    localStorage.clear();
+    showToast('🔄 Progreso reiniciado');
+  }
+}
+
+function shareApp() {
+  if (navigator.share) {
+    navigator.share({ title: 'FrançaisB2', text: '¡Aprende francés hasta B2 con esta app!', url: window.location.href });
+  } else {
+    copyLink();
+  }
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => showToast('🔗 Enlace copiado al portapapeles'));
+}
+
+// ==================== XP SYSTEM ====================
+function addXP(amount) {
+  APP.xp += amount;
+  localStorage.setItem('fb2_xp', APP.xp);
+  const badge = document.getElementById('xp-badge');
+  if (badge) badge.textContent = APP.xp.toLocaleString() + ' XP';
+  showToast(`+${amount} XP !`);
+}
+
+// ==================== TOAST ====================
+function showToast(msg) {
+  const old = document.getElementById('toast');
+  if (old) old.remove();
+  const t = document.createElement('div');
+  t.id = 'toast';
+  t.style.cssText = 'position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--navy);color:white;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:500;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);animation:fadeIn .25s ease';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300); }, 2200);
+}
+
+// ==================== INIT ====================
+function init() {
+  const name = localStorage.getItem('fb2_name') || 'Marcos';
+  APP.name = name;
+  document.getElementById('home-name').textContent = name;
+  document.getElementById('home-avatar').textContent = name.charAt(0).toUpperCase();
+  document.getElementById('prog-name').textContent = name;
+  document.getElementById('prog-avatar').textContent = name.charAt(0).toUpperCase();
+  document.getElementById('disp-name').textContent = name;
+  const xp = parseInt(localStorage.getItem('fb2_xp') || '1240');
+  APP.xp = xp;
+  document.getElementById('xp-badge').textContent = xp.toLocaleString() + ' XP';
+}
+
+init();
+</script>
+</body>
+</html>
